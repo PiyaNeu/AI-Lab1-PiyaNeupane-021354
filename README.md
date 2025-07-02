@@ -1,62 +1,66 @@
-# 🤖 Heuristic Search
+# Vacuum Cleaning Agents
 
-This repository showcases two well-known heuristic search problems implemented in Python:
+This project implements three types of intelligent agents for a vacuum cleaning environment, modeled on a 10x10 grid world. Each agent demonstrates a different level of intelligence in decision-making, from simple reflex responses to utility-optimized behavior.
 
-- The **8-Puzzle Game** solved using **Breadth-First Search (BFS)**, with **Manhattan Distance** used as a measure of cost.
-- A **Block Sorting Problem** handled with a **Hill Climbing** strategy using a heuristic based on incorrect block positions.
+## Environment
 
----
-
-## 📁 Files Included
-
-- `eight_puzzle_bfs.py` — Solves the 8-puzzle using BFS and heuristic guidance.
-- `block_arrangement_hill_climb.py` — Applies Hill Climbing to rearrange blocks.
-- `README.md` — This guide explaining how everything works.
+- Grid: 10x10
+- Each cell: Can be either **clean** or **dirty**
+- Agent Actions: `suck`, `move up`, `move down`, `move left`, `move right`
+- Agent's start position is randomized
+- Goal: Clean all dirty cells efficiently
 
 ---
 
-## 🧩 1. 8-Puzzle Using BFS and Manhattan Distance
+## Agents
 
-### 📝 Description
-The game consists of a 3x3 board filled with numbers from 1 to 8 and a blank tile (0). The task is to arrange the tiles into the final state:
--1 2 3
--4 5 6
--7 8 0
+### 1. Simple Reflex Agent
 
-### 📐 Heuristic Used
-- **Manhattan Distance**: Adds up how far each tile is from its correct position in terms of rows and columns.
+A simple reflex agent that selects actions based solely on the current percept (clean or dirty).
 
-### 🔍 Program Highlights
-- Accepts any valid starting configuration.
-- Uses BFS to explore possibilities.
-- Shows heuristic values during the search.
-- Displays the step-by-step moves to reach the solution.
+- **Input:** Current cell state (dirty or clean)
+- **Output:** Action (`suck`, `move` in random direction)
+- **Behavior:** If cell is dirty, suck. Otherwise, move randomly.
+- **Simulation:** 20 steps
+- **File:** `simple_reflex_agent.py`
 
 ---
 
-## 🧱 2. Block Sorting Using Hill Climbing
+### 2. Goal-Based Agent
 
-### 📝 Description
-You are given a shuffled list of four blocks like `[C, A, D, B]`. The goal is to arrange them as `[A, B, C, D]` by only swapping neighbors.
+A goal-based agent that maintains an internal model of the environment and uses search strategies to clean all dirty cells.
 
-### 📐 Heuristic Used
-- **Misplaced Blocks Count**: Counts how many blocks are out of order compared to the goal.
-
-### 🔍 Program Highlights
-- Applies Hill Climbing to improve the state step-by-step.
-- Can identify if it gets stuck in a local best (local maxima).
-- Prints each move along with the heuristic value.
+- **Input:** Current cell state and internal model of the grid
+- **Output:** Sequence of actions to clean grid
+- **Behavior:** Move to the nearest dirty cell and clean it
+- **Simulation:** Until grid is fully clean
+- **File:** `goal_based_agent.py`
 
 ---
 
-## ⚙️ How to Run
+### 3. Utility-Based Agent
 
-### 📦 Requirements
-- Python 3.x must be installed
+A utility-based agent that selects actions to maximize cumulative utility (e.g., cleaning efficiency and minimal movement).
 
-### ▶️ Execution
+- **Input:** Current cell state and internal model of the grid
+- **Output:** Sequence of utility-optimized actions
+- **Utility Function:**  
+  - Cleaning dirty cell: +5  
+  - Each move: -1
+- **Behavior:** Clean cells while minimizing movement cost
+- **File:** `utility_based_agent.py`
 
-To run the 8-Puzzle:
+---
+
+## Getting Started
+
+### Requirements
+
+- Python 3.x
+
+### Run Agents
+
 ```bash
-python eight_puzzle_bfs.py
-python block_arrangement_hill_climb.py
+python simple_reflex_agent.py
+python goal_based_agent.py
+python utility_based_agent.py
