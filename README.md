@@ -1,4 +1,4 @@
-# 🤖 Heuristic Search Projects
+# 🤖 Heuristic Search
 
 This repository showcases two well-known heuristic search problems implemented in Python:
 
